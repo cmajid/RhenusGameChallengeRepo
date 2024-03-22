@@ -1,26 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Rhenus.GameChallenge.Domain.Players
+namespace Rhenus.GameChallenge.Domain.Players;
+public class Player
 {
-    public class Player
+    private Player(PlayerId playerId, string username, int totalPoint)
     {
-        private Player(PlayerId playerId, string username, int totalPoint)
-        {
-            Id = playerId;
-            Username = username;
-            TotalPoint = totalPoint;
-        }
+        if (totalPoint < 0)
+            throw new InvalidPlayerTotalPontException();
 
-        public PlayerId Id { get; }
-        public string Username { get; }
-        public int TotalPoint { get; }
+        Id = playerId;
+        Username = username;
+        TotalPoint = totalPoint;
+    }
 
-        public static Player Create(PlayerId playerId, string username, int totalPoint)
-        {
-            return new Player(playerId, username, totalPoint);
-        }
+    public PlayerId Id { get; }
+    public string Username { get; }
+    public int TotalPoint { get; }
+
+    public static Player Create(PlayerId playerId, string username, int totalPoint)
+    {
+        return new Player(playerId, username, totalPoint);
     }
 }
