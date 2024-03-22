@@ -2,7 +2,7 @@ namespace Rhenus.GameChallenge.Domain.Players;
 
 public class PlayerId
 {
-    private PlayerId(Guid value)
+    public PlayerId(Guid value)
     {
         Value = value;
     }

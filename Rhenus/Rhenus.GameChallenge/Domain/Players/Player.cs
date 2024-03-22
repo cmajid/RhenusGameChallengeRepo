@@ -5,23 +5,23 @@ using Rhenus.GameChallenge.Domain.Players.Exceptions;
 namespace Rhenus.GameChallenge.Domain.Players;
 public class Player
 {
-    private Player(PlayerId playerId, string username, int totalPoint)
+    private Player(PlayerId playerId, string username, int account)
     {
-        if (totalPoint < 0)
-            throw new InvalidPlayerTotalPontException();
+        if (account < 0)
+            throw new InvalidPlayerAccountException();
 
         Id = playerId;
         Username = username;
-        TotalPoint = totalPoint;
+        Account = account;
     }
 
     public PlayerId Id { get; }
     public string Username { get; }
-    public int TotalPoint { get; private set; }
+    public int Account { get; private set; }
 
-    public static Player Create(PlayerId playerId, string username, int totalPoint)
+    public static Player Create(PlayerId playerId, string username, int account)
     {
-        return new Player(playerId, username, totalPoint);
+        return new Player(playerId, username, account);
     }
 
     public void PlaceBet(PlaceBetArg arg)
@@ -34,11 +34,11 @@ public class Player
 
         if (arg.Number == arg.Bet.Number)
         {
-            TotalPoint += arg.Points * 9;
+            Account += arg.Points * 9;
         }
         else
         {
-            TotalPoint -= arg.Points;
+            Account -= arg.Points;
         }
     }
 }

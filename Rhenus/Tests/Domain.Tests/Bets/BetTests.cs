@@ -14,7 +14,7 @@ public class BetTests
         // Given
         var betId = BetId.New();
         var playerId = PlayerId.New();
-        var genrator = Substitute.For<IBetValueGenerator>();
+        var genrator = Substitute.For<IBetNumberGenerator>();
 
         // When
         var sut = Bet.Create(betId, playerId, genrator);
@@ -31,7 +31,7 @@ public class BetTests
           // Given
         var betId = BetId.New();
         var playerId = PlayerId.New();
-        var genrator = Substitute.For<IBetValueGenerator>();
+        var genrator = Substitute.For<IBetNumberGenerator>();
         genrator.Generate().Returns(7);
 
         // When

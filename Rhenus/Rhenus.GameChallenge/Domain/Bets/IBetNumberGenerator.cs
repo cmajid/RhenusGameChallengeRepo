@@ -1,10 +1,10 @@
 namespace Rhenus.GameChallenge.Domain.Bets;
-public interface IBetValueGenerator
+public interface IBetNumberGenerator
 {
     int Generate();
 }
 
-public class BetValueGenerator : IBetValueGenerator
+public class BetNumberGenerator : IBetNumberGenerator
 {
     public int Generate()
     {

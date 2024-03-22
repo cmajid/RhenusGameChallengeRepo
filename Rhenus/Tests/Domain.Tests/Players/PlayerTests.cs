@@ -19,44 +19,44 @@ namespace Tests.Domain.Tests.Players
             // Given
             var playerId = PlayerId.New();
             var username = "USERNAME";
-            var totalPoint = 10000;
+            var account = 10000;
 
             // When
-            var sut = Player.Create(playerId, username, totalPoint);
+            var sut = Player.Create(playerId, username, account);
 
             // Then
             sut.Id.Should().Be(playerId);
             sut.Username.Should().Be(username);
-            sut.TotalPoint.Should().Be(totalPoint);
+            sut.Account.Should().Be(account);
         }
 
         [Fact]
-        public void Constractor_ShouldThrowException_WhenTotalPointIsLessThanZiro()
+        public void Constractor_ShouldThrowException_WhenAccountIsLessThanZiro()
         {
             // Given
             var playerId = PlayerId.New();
             var username = "USERNAME";
-            var totalPoint = -1;
+            var account = -1;
 
             // When
             var act = () =>
             {
-                Player.Create(playerId, username, totalPoint);
+                Player.Create(playerId, username, account);
             };
 
             // Then
-            act.Should().Throw<InvalidPlayerTotalPontException>();
+            act.Should().Throw<InvalidPlayerAccountException>();
         }
 
         #endregion
 
         #region Place Bet Tests
         [Fact]
-        public void PlaceBet_IncreasesTotalPoint_WhenPlayerHasPredictedCorrectly()
+        public void PlaceBet_IncreasesAccount_WhenPlayerHasPredictedCorrectly()
         {
             // Given
             var sut = Player.Create(PlayerId.New(), "USERNAME", 10000);
-            var genrator = Substitute.For<IBetValueGenerator>();
+            var genrator = Substitute.For<IBetNumberGenerator>();
             genrator.Generate().Returns(6);
             var bet = Bet.Create(BetId.New(), sut.Id, genrator);
             var arg = new PlaceBetArg(100, 6, bet);
@@ -65,15 +65,15 @@ namespace Tests.Domain.Tests.Players
             sut.PlaceBet(arg);
 
             // Then
-            sut.TotalPoint.Should().Be(10900);
+            sut.Account.Should().Be(10900);
         }
 
         [Fact]
-        public void PlaceBet_DecreasesTotalPoint_WhenPlayerHasPredictedWrongly()
+        public void PlaceBet_DecreasesAccount_WhenPlayerHasPredictedWrongly()
         {
             // Given
             var sut = Player.Create(PlayerId.New(), "USERNAME", 10000);
-            var genrator = Substitute.For<IBetValueGenerator>();
+            var genrator = Substitute.For<IBetNumberGenerator>();
             genrator.Generate().Returns(6);
             var bet = Bet.Create(BetId.New(), sut.Id, genrator);
             var arg = new PlaceBetArg(100, 5, bet);
@@ -82,7 +82,7 @@ namespace Tests.Domain.Tests.Players
             sut.PlaceBet(arg);
 
             // Then
-            sut.TotalPoint.Should().Be(9900);
+            sut.Account.Should().Be(9900);
         }
 
         [Theory]
@@ -94,7 +94,7 @@ namespace Tests.Domain.Tests.Players
         {
             // Given
             var sut = Player.Create(PlayerId.New(), "USERNAME", 10000);
-            var genrator = Substitute.For<IBetValueGenerator>();
+            var genrator = Substitute.For<IBetNumberGenerator>();
             var bet = Bet.Create(BetId.New(), sut.Id, genrator);
             var arg = new PlaceBetArg(100, number, bet);
 
