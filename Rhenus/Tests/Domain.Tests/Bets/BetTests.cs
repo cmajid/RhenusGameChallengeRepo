@@ -22,7 +22,7 @@ public class BetTests
         // Then
         sut.Id.Should().Be(betId);
         sut.PlayerId.Should().BeEquivalentTo(playerId);
-        sut.Value.Should().BeInRange(0, 9);
+        sut.Number.Should().BeInRange(0, 9);
     }
 
     [Fact]
@@ -40,6 +40,6 @@ public class BetTests
         // Then
         sut.Id.Should().Be(betId);
         sut.PlayerId.Should().BeEquivalentTo(playerId);
-        sut.Value.Should().Be(7);
+        sut.Number.Should().Be(7);
     }
 }

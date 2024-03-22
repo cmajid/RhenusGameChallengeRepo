@@ -1,4 +1,5 @@
 
+
 namespace Rhenus.GameChallenge.Domain.Players;
 public class Player
 {
@@ -14,10 +15,16 @@ public class Player
 
     public PlayerId Id { get; }
     public string Username { get; }
-    public int TotalPoint { get; }
+    public int TotalPoint { get; private set; }
 
     public static Player Create(PlayerId playerId, string username, int totalPoint)
     {
         return new Player(playerId, username, totalPoint);
+    }
+
+    public void PlaceBet(PlaceBetArg arg)
+    {
+        if(arg.Number == arg.Bet.Number)
+            TotalPoint += arg.Points * 9;
     }
 }

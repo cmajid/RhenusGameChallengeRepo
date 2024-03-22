@@ -13,7 +13,7 @@ namespace Rhenus.GameChallenge.Domain.Bets
         {
             Id = id;
             PlayerId = playerId;
-            Value = betValueGenerator.Generate();
+            Number = betValueGenerator.Generate();
         }
 
         public static Bet Create(BetId id, PlayerId playerId, IBetValueGenerator betValueGenerator){
@@ -21,6 +21,6 @@ namespace Rhenus.GameChallenge.Domain.Bets
         }
         public BetId Id { get; }
         public PlayerId PlayerId { get; }
-        public int Value { get; }
+        public int Number { get; }
     }
 }
