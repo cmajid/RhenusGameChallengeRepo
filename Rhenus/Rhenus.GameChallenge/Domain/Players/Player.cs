@@ -5,6 +5,7 @@ using Rhenus.GameChallenge.Domain.Players.Exceptions;
 namespace Rhenus.GameChallenge.Domain.Players;
 public class Player
 {
+
     private Player(PlayerId playerId, string username, int account)
     {
         if (account < 0)
@@ -18,6 +19,9 @@ public class Player
     public PlayerId Id { get; }
     public string Username { get; }
     public int Account { get; private set; }
+    public IReadOnlyList<PlayerBetHistory> BetHistories => _betHistories;
+
+    private List<PlayerBetHistory> _betHistories = new();
 
     public static Player Create(PlayerId playerId, string username, int account)
     {
@@ -32,13 +36,18 @@ public class Player
             throw new InvalidBetNumberException();
         }
 
+        PlayerBetHistory? history = default;
         if (arg.Number == arg.Bet.Number)
         {
-            Account += arg.Points * 9;
+            var points = arg.Points * 9;
+            Account += points;
+            history = new("won", $"+{points}", Account, arg.Bet.Id);
         }
         else
         {
             Account -= arg.Points;
+            history = new("lost", $"-{arg.Points}", Account, arg.Bet.Id);
         }
+        _betHistories.Add(history);
     }
 }
