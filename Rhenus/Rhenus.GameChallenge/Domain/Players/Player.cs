@@ -24,7 +24,10 @@ public class Player
 
     public void PlaceBet(PlaceBetArg arg)
     {
-        if(arg.Number == arg.Bet.Number)
+        if(arg.Number == arg.Bet.Number){
             TotalPoint += arg.Points * 9;
+        }else{
+            TotalPoint -= arg.Points;
+        }
     }
 }

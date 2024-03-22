@@ -65,6 +65,23 @@ namespace Tests.Domain.Tests.Players
             // Then
             sut.TotalPoint.Should().Be(10900);
         }
+
+        [Fact]
+        public void PlaceBet_DecreasesTotalPoint_WhenPlayerHasPredictedWrongly()
+        {
+            // Given
+            var sut = Player.Create(PlayerId.New(), "USERNAME", 10000);
+            var genrator = Substitute.For<IBetValueGenerator>();
+            genrator.Generate().Returns(6);
+            var bet = Bet.Create(BetId.New(), sut.Id, genrator);
+            var arg = new PlaceBetArg(100, 5, bet);
+
+            // When
+            sut.PlaceBet(arg);
+
+            // Then
+            sut.TotalPoint.Should().Be(9900);
+        }
         #endregion
     }
 }
