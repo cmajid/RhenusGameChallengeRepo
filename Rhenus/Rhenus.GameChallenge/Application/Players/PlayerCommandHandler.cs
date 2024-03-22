@@ -27,9 +27,7 @@ public class PlayerCommandHandler
     {
         var player = _playerRepository.GetBy(new PlayerId(command.PlayerId));
         if (player is null)
-        {
-            return default;
-        }
+            throw new Exception($"Player could not found with id: {command.PlayerId}");
 
         var bet = Bet.Create(BetId.New(), player.Id, _betNumberGenerator);
         var arg = new PlaceBetArg(command.Point, command.Number, bet);
@@ -37,8 +35,8 @@ public class PlayerCommandHandler
         player.PlaceBet(arg);
 
         _playerRepository.Update(player);
-        return default;
 
+        var betHistory = player.BetHistories.Last();
+        return new PlaceBetCommandResult(betHistory.Account, betHistory.Status, betHistory.Points);
     }
-
 }
