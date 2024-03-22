@@ -1,8 +1,10 @@
 
 using FluentAssertions;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using Rhenus.GameChallenge.Domain.Bets;
 using Rhenus.GameChallenge.Domain.Players;
+using Rhenus.GameChallenge.Domain.Players.Exceptions;
 using Xunit;
 
 namespace Tests.Domain.Tests.Players
@@ -81,6 +83,29 @@ namespace Tests.Domain.Tests.Players
 
             // Then
             sut.TotalPoint.Should().Be(9900);
+        }
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(-2)]
+        [InlineData(10)]
+        [InlineData(11)]
+        public void PlaceBet_ShouldThrowException_WhenPredictionNumberIsNotInRangeOf_0_9(int number)
+        {
+            // Given
+            var sut = Player.Create(PlayerId.New(), "USERNAME", 10000);
+            var genrator = Substitute.For<IBetValueGenerator>();
+            var bet = Bet.Create(BetId.New(), sut.Id, genrator);
+            var arg = new PlaceBetArg(100, number, bet);
+
+            // When
+            var act = () =>
+            {
+                sut.PlaceBet(arg);
+            };
+
+            // Then
+            act.Should().Throw<InvalidBetNumberException>();
         }
         #endregion
     }

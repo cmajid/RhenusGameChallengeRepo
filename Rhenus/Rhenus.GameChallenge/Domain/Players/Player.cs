@@ -1,5 +1,7 @@
 
 
+using Rhenus.GameChallenge.Domain.Players.Exceptions;
+
 namespace Rhenus.GameChallenge.Domain.Players;
 public class Player
 {
@@ -24,9 +26,18 @@ public class Player
 
     public void PlaceBet(PlaceBetArg arg)
     {
-        if(arg.Number == arg.Bet.Number){
+
+        if (arg.Number is < 0 or >= 10)
+        {
+            throw new InvalidBetNumberException();
+        }
+
+        if (arg.Number == arg.Bet.Number)
+        {
             TotalPoint += arg.Points * 9;
-        }else{
+        }
+        else
+        {
             TotalPoint -= arg.Points;
         }
     }
