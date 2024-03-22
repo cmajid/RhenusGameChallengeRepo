@@ -14,6 +14,9 @@ builder.Services.AddScoped<IPlayerRepository, InMemoryPlayerRepository>();
 builder.Services.AddScoped<IBetNumberGenerator, BetNumberGenerator>();
 builder.Services.AddScoped<PlayerCommandHandler>();
 
+builder.Services.AddControllers()
+            .AddMvcOptions(x => { x.EnableEndpointRouting = false; });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,5 +27,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMvcWithDefaultRoute();
 
 app.Run();

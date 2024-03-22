@@ -10,8 +10,11 @@ public class InMemoryPlayerRepository : IPlayerRepository
         _players.Add(player.Id, player);
     }
 
-    public Player GetBy(PlayerId id)
+    public Player? GetBy(PlayerId id)
     {
+        if (!_players.ContainsKey(id))
+            return null;
+
         return _players[id];
     }
 
