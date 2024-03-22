@@ -1,3 +1,4 @@
+using Rhenus.GameChallenge.Application.Players;
 using Rhenus.GameChallenge.Domain.Bets;
 using Rhenus.GameChallenge.Domain.Players;
 using Rhenus.GameChallenge.Infrastructure.Repositories;
@@ -11,6 +12,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IPlayerRepository, InMemoryPlayerRepository>();
 builder.Services.AddScoped<IBetNumberGenerator, BetNumberGenerator>();
+builder.Services.AddScoped<PlayerCommandHandler>();
 
 var app = builder.Build();
 
