@@ -1,4 +1,5 @@
 using FluentAssertions;
+using NSubstitute;
 using Rhenus.GameChallenge.Domain.Bets;
 using Rhenus.GameChallenge.Domain.Players;
 using Xunit;
@@ -11,16 +12,34 @@ public class BetTests
     public void Constractor_ShouldCreate_NewBetInstance()
     {
         // Given
-        var betId = Guid.NewGuid();
+        var betId = BetId.New();
         var playerId = PlayerId.New();
+        var genrator = Substitute.For<IBetValueGenerator>();
 
         // When
-        var sut = new Bet(betId, playerId);
+        var sut = Bet.Create(betId, playerId, genrator);
 
         // Then
         sut.Id.Should().Be(betId);
         sut.PlayerId.Should().BeEquivalentTo(playerId);
-
         sut.Value.Should().BeInRange(0, 9);
+    }
+
+    [Fact]
+    public void Constractor_ShouldCreateValueWithValidRangeOf0_9()
+    {
+          // Given
+        var betId = BetId.New();
+        var playerId = PlayerId.New();
+        var genrator = Substitute.For<IBetValueGenerator>();
+        genrator.Generate().Returns(7);
+
+        // When
+        var sut = Bet.Create(betId, playerId, genrator);
+
+        // Then
+        sut.Id.Should().Be(betId);
+        sut.PlayerId.Should().BeEquivalentTo(playerId);
+        sut.Value.Should().Be(7);
     }
 }

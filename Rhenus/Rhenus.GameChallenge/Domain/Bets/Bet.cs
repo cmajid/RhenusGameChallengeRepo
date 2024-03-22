@@ -4,13 +4,22 @@ namespace Rhenus.GameChallenge.Domain.Bets
 {
     public class Bet
     {
-        public Bet(Guid id, PlayerId playerId)
+        private Bet()
+        {
+         
+        }
+
+        private Bet(BetId id, PlayerId playerId,IBetValueGenerator betValueGenerator)
         {
             Id = id;
             PlayerId = playerId;
+            Value = betValueGenerator.Generate();
         }
 
-        public Guid Id { get; }
+        public static Bet Create(BetId id, PlayerId playerId, IBetValueGenerator betValueGenerator){
+          return new Bet(id, playerId,betValueGenerator);
+        }
+        public BetId Id { get; }
         public PlayerId PlayerId { get; }
         public int Value { get; }
     }
