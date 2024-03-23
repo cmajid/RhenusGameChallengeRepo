@@ -29,4 +29,21 @@ public class AuthCommandHandlerTests
         playerRepository.Received(1).GetBy(player.Username);
         jwtProvider.Received(1).Genrate(player);
     }
+
+    [Fact]
+    public void Handle_ShouldHandle_RegisterPlayerCommand()
+    {
+        // Given
+        var playerRepository = Substitute.For<IPlayerRepository>();
+        var jwtProvider = Substitute.For<IJwtProvider>();
+        var sut = new AuthCommandHanlder(playerRepository, jwtProvider);
+        var command = new RegisterPlayerCommand("USERNAME", "PASSWORD");
+
+        
+        // When
+        sut.Handle(command);
+
+        // Then
+        playerRepository.Received(1).Add(Arg.Any<Player>());
+    }
 }
