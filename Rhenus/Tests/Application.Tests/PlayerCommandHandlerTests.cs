@@ -7,7 +7,7 @@ using Rhenus.GameChallenge.Domain.Players;
 using Xunit;
 
 namespace Tests.Application.Tests;
-public class PlayerCommandHalndlerTetst
+public class PlayerCommandHandlerTests
 {
     [Fact]
     public void Handle_ShouldHandle_DefinePlayerCommand()
