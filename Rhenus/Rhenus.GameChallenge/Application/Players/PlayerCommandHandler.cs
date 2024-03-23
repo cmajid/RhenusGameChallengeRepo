@@ -3,7 +3,6 @@ using Rhenus.GameChallenge.Application.Players.Commands;
 using Rhenus.GameChallenge.Domain.Bets;
 using Rhenus.GameChallenge.Domain.Players;
 using Rhenus.GameChallenge.Domain.Players.Args;
-using Rhenus.GameChallenge.Infrastructure.Authentication;
 
 namespace Rhenus.GameChallenge.Application.Players;
 public class PlayerCommandHandler(
@@ -11,11 +10,9 @@ public class PlayerCommandHandler(
     IBetNumberGenerator betNumberGenerator)
 {
 
-    private const int defaultAccountValue = 10000;
-
     public Guid Handle(DefinePlayerCommand command)
     {
-        var player = Player.Create(PlayerId.New(), command.Username, defaultAccountValue);
+        var player = Player.Create(PlayerId.New(), command.Username, Constants.DefaultAccountValue);
         playerRepository.Add(player);
         
         return player.Id.Value;

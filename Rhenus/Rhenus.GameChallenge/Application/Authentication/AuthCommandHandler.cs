@@ -8,7 +8,6 @@ public class AuthCommandHanlder(
     IPlayerRepository playerRepository,
     IJwtProvider jwtProvider)
 {
-    private const int defaultAccountValue = 10000;
     public string Handle(LoginPlayerCommand command)
     {
         var player = playerRepository.GetBy(command.Username);
@@ -30,7 +29,7 @@ public class AuthCommandHanlder(
             Username = command.Username,
             Password = command.Password,
             PlayerId = PlayerId.New(),
-            Account = defaultAccountValue
+            Account = Constants.DefaultAccountValue
         }));
     }
 }

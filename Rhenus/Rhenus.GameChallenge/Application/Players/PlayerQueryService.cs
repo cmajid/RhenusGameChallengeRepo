@@ -30,13 +30,13 @@ public record GetPlayerQueryResponse
     public Guid Id { get; set; }
     public required string Username { get; set; }
     public int Account { get; set; }
-    public IList<PlayerBetHistoryQueryResponseItem> BetHistories { get; set; }
+    public IList<PlayerBetHistoryQueryResponseItem>? BetHistories { get; set; }
 }
 
 public record PlayerBetHistoryQueryResponseItem
 {
-    public string Status { get; set; }
-    public string Points { get; set; }
+    public required string Status { get; set; }
+    public required string Points { get; set; }
     public int Account { get; set; }
     public Guid BetId { get; set; }
 }
