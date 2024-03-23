@@ -2,19 +2,18 @@
 using Rhenus.GameChallenge.Application.Players.Commands;
 using Rhenus.GameChallenge.Domain.Bets;
 using Rhenus.GameChallenge.Domain.Players;
+using Rhenus.GameChallenge.Infrastructure.Authentication;
 
 namespace Rhenus.GameChallenge.Application.Players;
-public class PlayerCommandHandler
+public class PlayerCommandHandler(
+    IPlayerRepository playerRepository,
+    IBetNumberGenerator betNumberGenerator,
+    IJwtProvider jwtProvider)
 {
-    private readonly IPlayerRepository _playerRepository;
-    private readonly IBetNumberGenerator _betNumberGenerator;
+    private readonly IPlayerRepository _playerRepository = playerRepository;
+    private readonly IBetNumberGenerator _betNumberGenerator = betNumberGenerator;
+    private readonly IJwtProvider _jwtProvider = jwtProvider;
     private const int defaultAccount = 10000;
-
-    public PlayerCommandHandler(IPlayerRepository playerRepository, IBetNumberGenerator betNumberGenerator)
-    {
-        _playerRepository = playerRepository;
-        _betNumberGenerator = betNumberGenerator;
-    }
 
     public Guid Handle(DefinePlayerCommand command)
     {
@@ -38,5 +37,17 @@ public class PlayerCommandHandler
 
         var betHistory = player.BetHistories.Last();
         return new PlaceBetCommandResult(betHistory.Account, betHistory.Status, betHistory.Points);
+    }
+
+    public string Handle(LoginPlayerCommand command)
+    {
+
+        var player = _playerRepository.GetBy(command.Username);
+
+        if (player is null)
+            throw new Exception($"Player could not found with username: {command.Username}");
+
+        string token = _jwtProvider.Genrate(player);
+        return token;
     }
 }
