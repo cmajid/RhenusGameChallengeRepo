@@ -36,4 +36,5 @@ public class PlayerCommandHandler(
         return new PlaceBetCommandResult(betHistory.Account, betHistory.Status, betHistory.Points, bet.Number);
     }
 
+
 }

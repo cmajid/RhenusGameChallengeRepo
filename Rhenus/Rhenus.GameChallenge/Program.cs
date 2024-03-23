@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Rhenus.GameChallenge.Application.Autentication;
 using Rhenus.GameChallenge.Application.Players;
 using Rhenus.GameChallenge.Domain.Bets;
 using Rhenus.GameChallenge.Domain.Players;
@@ -44,6 +45,8 @@ builder.Services.AddScoped<IJwtProvider, JwtProvider>();
 builder.Services.AddScoped<IPlayerRepository, InMemoryPlayerRepository>();
 builder.Services.AddScoped<IBetNumberGenerator, BetNumberGenerator>();
 builder.Services.AddScoped<PlayerCommandHandler>();
+builder.Services.AddScoped<AuthCommandHanlder>();
+builder.Services.AddScoped<PlayerQueryService>();
 
 builder.Services
     .AddControllers()

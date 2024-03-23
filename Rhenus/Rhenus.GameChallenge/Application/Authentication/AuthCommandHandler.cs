@@ -8,7 +8,7 @@ using Rhenus.GameChallenge.Domain.Players;
 using Rhenus.GameChallenge.Domain.Players.Args;
 using Rhenus.GameChallenge.Infrastructure.Authentication;
 
-namespace Rhenus.GameChallenge.Application.Players;
+namespace Rhenus.GameChallenge.Application.Autentication;
 public class AuthCommandHanlder(
     IPlayerRepository playerRepository,
     IJwtProvider jwtProvider)
