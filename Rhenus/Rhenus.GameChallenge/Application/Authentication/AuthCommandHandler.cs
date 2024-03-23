@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Rhenus.GameChallenge.Application.Players.Commands;
-using Rhenus.GameChallenge.Domain.Bets;
 using Rhenus.GameChallenge.Domain.Players;
 using Rhenus.GameChallenge.Domain.Players.Args;
 using Rhenus.GameChallenge.Infrastructure.Authentication;
