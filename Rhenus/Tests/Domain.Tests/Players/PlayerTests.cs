@@ -1,9 +1,9 @@
 
 using FluentAssertions;
 using NSubstitute;
-using NSubstitute.ExceptionExtensions;
 using Rhenus.GameChallenge.Domain.Bets;
 using Rhenus.GameChallenge.Domain.Players;
+using Rhenus.GameChallenge.Domain.Players.Args;
 using Rhenus.GameChallenge.Domain.Players.Exceptions;
 using Xunit;
 

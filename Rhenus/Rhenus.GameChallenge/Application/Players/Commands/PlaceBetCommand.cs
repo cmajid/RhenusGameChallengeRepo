@@ -15,4 +15,4 @@ public record PlaceBetCommand
     public int Point { get; set; }
 
 }
-public record PlaceBetCommandResult(int Account, string Status, string Points);
+public record PlaceBetCommandResult(int Account, string Status, string Points, int BetNumber);

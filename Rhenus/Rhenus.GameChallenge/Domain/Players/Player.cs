@@ -1,23 +1,26 @@
 
 
+using Rhenus.GameChallenge.Domain.Players.Args;
 using Rhenus.GameChallenge.Domain.Players.Exceptions;
 
 namespace Rhenus.GameChallenge.Domain.Players;
 public class Player
 {
 
-    private Player(PlayerId playerId, string username, int account)
+    private Player(CreatePlayerArg args)
     {
-        if (account < 0)
+        if (args.Account < 0)
             throw new InvalidPlayerAccountException();
 
-        Id = playerId;
-        Username = username;
-        Account = account;
+        Id = args.PlayerId;
+        Username = args.Username;
+        Password = args.Password;
+        Account = args.Account;
     }
 
     public PlayerId Id { get; }
     public string Username { get; }
+    public string Password { get; }
     public int Account { get; private set; }
     public IReadOnlyList<PlayerBetHistory> BetHistories => _betHistories;
 
@@ -25,7 +28,18 @@ public class Player
 
     public static Player Create(PlayerId playerId, string username, int account)
     {
-        return new Player(playerId, username, account);
+        return new Player(new CreatePlayerArg
+        {
+            PlayerId = playerId,
+            Username = username,
+            Account = account,
+            Password = string.Empty
+        });
+    }
+
+    public static Player Create(CreatePlayerArg args)
+    {
+        return new Player(args);
     }
 
     public void PlaceBet(PlaceBetArg arg)

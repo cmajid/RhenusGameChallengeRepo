@@ -4,11 +4,6 @@ namespace Rhenus.GameChallenge.Domain.Bets
 {
     public class Bet
     {
-        private Bet()
-        {
-         
-        }
-
         private Bet(BetId id, PlayerId playerId,IBetNumberGenerator betNumberGenerator)
         {
             Id = id;
