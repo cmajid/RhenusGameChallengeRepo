@@ -1,7 +1,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Rhenus.GameChallenge.Application.Autentication;
-using Rhenus.GameChallenge.Application.Players.Commands;
+using Rhenus.GameChallenge.Application.Autentication.Commands;
 
 namespace Rhenus.GameChallenge.Controllers;
 

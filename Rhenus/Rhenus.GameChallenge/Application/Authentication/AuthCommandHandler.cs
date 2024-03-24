@@ -1,4 +1,4 @@
-using Rhenus.GameChallenge.Application.Players.Commands;
+using Rhenus.GameChallenge.Application.Autentication.Commands;
 using Rhenus.GameChallenge.Domain.Players;
 using Rhenus.GameChallenge.Domain.Players.Args;
 using Rhenus.GameChallenge.Infrastructure.Authentication;

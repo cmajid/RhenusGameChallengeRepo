@@ -47,7 +47,12 @@ public class Player
 
         if (arg.Number is < 0 or >= 10)
         {
-            throw new InvalidBetNumberException();
+            throw new InvalidBetException("Invalid bet number exception");
+        }
+
+        if (arg.Points is <= 0 || arg.Points > Account)
+        {
+            throw new InvalidBetException("Invalid bet points exception");
         }
 
         PlayerBetHistory? history = default;

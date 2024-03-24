@@ -105,7 +105,7 @@ namespace Tests.Domain.Tests.Players
             };
 
             // Then
-            act.Should().Throw<InvalidBetNumberException>();
+            act.Should().Throw<InvalidBetException>();
         }
 
         [Fact]
