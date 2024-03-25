@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Rhenus.GameChallenge.Infrastructure.ExceptionHandlers;
-internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) 
+internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
     : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(
@@ -16,7 +16,7 @@ internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> log
         var problemDetails = new ProblemDetails
         {
             Status = StatusCodes.Status500InternalServerError,
-            Title = "Server error"
+            Title = exception.Message ?? "Server error"
         };
 
         httpContext.Response.StatusCode = problemDetails.Status.Value;

@@ -11,11 +11,10 @@ public class AuthCommandHanlder(
     public string Handle(LoginPlayerCommand command)
     {
         var player = playerRepository.GetBy(command.Username);
-        if (player is null)
-            throw new Exception($"Player could not found with username: {command.Username}");
+        if (player is null || player.Password != command.Password)
+            throw new Exception("Username or password is wrong");
 
-        string token = jwtProvider.Genrate(player);
-        return token;
+        return jwtProvider.Genrate(player);
     }
 
     public void Handle(RegisterPlayerCommand command)
